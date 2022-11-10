@@ -5,6 +5,6 @@ import { logMiddleware } from "../middleware/log";
 
 const router = Router();
 
-router.get('/', logMiddleware, checkJwt, getItems);
+router.get("/", logMiddleware, checkJwt, getItems);
 
 export { router };

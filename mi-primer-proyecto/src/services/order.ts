@@ -1,9 +1,9 @@
 import ItemModel from "../models/item";
 
 const getOrders = async () => {
-  const responseItem = await ItemModel.find({});
+	const responseItem = await ItemModel.find({});
 
-  return responseItem;
+	return responseItem;
 };
 
 export { getOrders };
