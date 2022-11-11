@@ -1,7 +1,7 @@
 FROM node:18.12.1
 
-# Create app directory
-WORKDIR /usr/src/app
+# Create app directory, this is in our container/in our image
+WORKDIR /mi-primer-proyecto/src/app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -14,6 +14,8 @@ RUN npm install
 
 # Bundle app source
 COPY . .
+
+RUN npm run build
 
 EXPOSE 3000
 CMD [ "node", "dist/app" ]

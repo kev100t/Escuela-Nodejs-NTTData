@@ -5,7 +5,9 @@ const routes = express.Router({
 });
 
 routes.get('/', (req, res) => {
-  res.status(200).json({});
+  res.status(200).json({
+    nombres: "Kevin Primo"
+  });
 });
 
 module.exports = { routes };
