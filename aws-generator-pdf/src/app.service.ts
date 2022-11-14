@@ -1,16 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { launch } from "puppeteer"
-import chromium from 'chrome-aws-lambda';
-import { Readable } from 'stream';
+import { Injectable } from "@nestjs/common";
+import { launch } from "puppeteer";
+import chromium from "chrome-aws-lambda";
+import { Readable } from "stream";
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
-  }
+	getHello(): string {
+		return "Hello World!";
+	}
 
-  async makePdf():Promise<any>{
-    const html = `
+	async makePdf(): Promise<any> {
+		const html = `
     <style>
     body {
         font-family: Inter, sans-serif;
@@ -199,35 +199,35 @@ export class AppService {
     <div style="height: 30px"></div>
     <div class="footer">&copy; 2021 E-Store Ltd.</div>
 </div>
-    `
-    const browser = await launch({
-      headless: true,
-      userDataDir: '/dev/null',
-      // args: chromium.args,
-      // defaultViewport: chromium.defaultViewport,
-      // executablePath: await chromium.executablePath,
-    })
-    const page = await browser.newPage()
-    await page.setContent(html, {
-      waitUntil: 'domcontentloaded'
-    })
-    const buffer = await page.pdf({
-      format: 'A4'
-    })
-    await page.setContent(html);
-    return buffer.toString('base64');
-  }
+    `;
+		const browser = await launch({
+			headless: true,
+			userDataDir: "/dev/null",
+			// args: chromium.args,
+			// defaultViewport: chromium.defaultViewport,
+			// executablePath: await chromium.executablePath,
+		});
+		const page = await browser.newPage();
+		await page.setContent(html, {
+			waitUntil: "domcontentloaded",
+		});
+		const buffer = await page.pdf({
+			format: "A4",
+		});
+		await page.setContent(html);
+		return buffer.toString("base64");
+	}
 
-  async printPdf(): Promise<Buffer> {
-    return await this.makePdf()
-  }
-  
-  getReadableStream(buffer: Buffer): Readable {
-    const stream = new Readable();
-  
-    stream.push(buffer);
-    stream.push(null);
-  
-    return stream;
-  }
+	async printPdf(): Promise<Buffer> {
+		return await this.makePdf();
+	}
+
+	getReadableStream(buffer: Buffer): Readable {
+		const stream = new Readable();
+
+		stream.push(buffer);
+		stream.push(null);
+
+		return stream;
+	}
 }
