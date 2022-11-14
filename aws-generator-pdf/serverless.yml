@@ -1,0 +1,37 @@
+service: aws-generator-pdf
+
+plugins:
+  - serverless-offline
+  - serverless-apigw-binary
+  - serverless-plugin-include-dependencies
+
+custom:
+  apigwBinary:
+    #list of mime-types
+    types: 
+      - '*/*'
+
+provider:
+  name: aws
+  deploymentMethod: direct
+  runtime: nodejs12.x
+  stage: dev
+  region: us-east-1
+
+package:
+  patterns:
+    - '!node_modules/puppeteer/.local-chromium/**'
+    - 'node_modules/@nestjs/common/**'
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+          cors: true
+      - http:
+          method: ANY
+          path: '{proxy+}'
+          cors: true

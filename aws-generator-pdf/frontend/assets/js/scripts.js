@@ -27,8 +27,6 @@
   const editorAditionalInformation = makeEditor('#editorAditionalInformation');
 
   function createPdf(
-    senderLogo,
-    senderSignature,
     senderName,
     senderCompany,
     senderSlogan,
@@ -47,17 +45,18 @@
     aditionalInformation,
   ){
 
+    const url = 'https://g8zn5a67j7.execute-api.us-east-1.amazonaws.com/dev/';
+    // const url = 'http://localhost:3000/dev/create-pdf/';
+
     isLoading(true);
 
-    fetch('http://localhost:3000/create-pdf', {
+    fetch(`${url}create-pdf`, {
       method: 'POST',
       headers: new Headers({
         'Accept': '*/*',
         'Content-type': 'application/json'
       }),
       body: JSON.stringify({
-        senderLogo: senderLogo || ' ',
-        senderSignature: senderSignature || ' ',
         senderName: senderName || ' ',
         senderCompany: senderCompany || ' ',
         senderSlogan: senderSlogan || ' ',
@@ -106,7 +105,7 @@
   }
 
   async function handleSubmit(e) {
-    e.preventDefault(); 
+    e.preventDefault();
     let senderName = document.getElementById('senderName').value;
     let senderCompany = document.getElementById('senderCompany').value;
     let senderSlogan = document.getElementById('senderSlogan').value;
@@ -125,8 +124,6 @@
     let aditionalInformation = editorAditionalInformation.root.innerHTML;    
 
     createPdf(
-      senderLogo,
-      senderSignature,
       senderName,
       senderCompany,
       senderSlogan,
