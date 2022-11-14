@@ -1,4 +1,4 @@
-service: serverless-example
+service: aws-nest-generator-pdf
 
 plugins:
   - serverless-offline
@@ -16,7 +16,7 @@ provider:
   deploymentMethod: direct
   runtime: nodejs12.x
   stage: dev
-  region: us-east-2
+  region: us-east-1
 
 package:
   patterns:
